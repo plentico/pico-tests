@@ -74,7 +74,7 @@ func buildSite() {
 
 	// Render the site
 	picoBinary := filepath.Join(picoDir, "pico")
-	siteViews := filepath.Join(projectDir, "site/views/home.html")
+	siteViews := filepath.Join(projectDir, "site/views/home.pico")
 	siteProps := filepath.Join(projectDir, "site/props.json")
 	outputDir := filepath.Join(projectDir, "public")
 
