@@ -1,5 +1,34 @@
 const cms_root_fields = JSON.parse(document.getElementById('p-root-data').textContent);
-//const cms_local_fields = JSON.parse(document.getElementById('p-local-data').textContent);
+
+// Parse p-scope attribute from the html element to get local fields
+function parsePScope() {
+    const htmlElement = document.documentElement;
+    const pScope = htmlElement.getAttribute('p-scope');
+    if (!pScope) return {};
+    
+    const fields = {};
+    // Split by semicolon to get individual assignments
+    const assignments = pScope.split(';');
+    
+    for (const assignment of assignments) {
+        const trimmed = assignment.trim();
+        if (!trimmed) continue;
+        
+        // Extract variable name (everything before the first =)
+        const eqIndex = trimmed.indexOf('=');
+        if (eqIndex === -1) continue;
+        
+        const varName = trimmed.substring(0, eqIndex).trim();
+        if (varName) {
+            // Initialize with empty string - actual values come from DOM bindings
+            fields[varName] = '';
+        }
+    }
+    
+    return fields;
+}
+
+const cms_local_fields = parsePScope();
 
 function createInputs(obj, container, title) {
     container.appendChild(document.createElement('br'));
@@ -134,7 +163,7 @@ function updateArrayFromInputs(key) {
 }
 const cms = document.getElementById('plenti_cms');
 createInputs(cms_root_fields, cms, "Root Data");
-//createInputs(cms_local_fields, cms, "Local Data");
+createInputs(cms_local_fields, cms, "Local Data");
 
 document.getElementById('toggle_plenti_cms').addEventListener('click', function () {
     const menu = document.getElementById('plenti_cms');

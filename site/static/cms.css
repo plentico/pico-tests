@@ -12,6 +12,7 @@
     padding: 20px;
     box-sizing: border-box;
     z-index: 1000;
+    overflow-y: scroll;
 }
 
 /* Style for the menu when it's visible */

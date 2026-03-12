@@ -9,7 +9,7 @@ prop age;
 prop animals;
 prop test = "whatever";
 
-let text = "something" + name;
+let text = "<em>some<strong>thing</strong></em>" + name;
 let title = "Pico";
 
 var salutation = "hola";
@@ -30,8 +30,8 @@ let new_animal = "";
 			<AgeButton {age} />
 			<AgeButton age={age + 1} />
 			<h1>{salutation} {name}</h1>
-			<span>{test}</span>
-			<span>{text}</span>
+			<span class="test1 test2">{test}</span>
+			<span>{text | trim(7) | html("em", "strong")}</span>
 			{if name.length >= 3}
 				<div id="praise">{name} is a long name</div>
 				{if age > 0}
@@ -86,6 +86,9 @@ let new_animal = "";
 <style>
 	h1 {
 		color: orange;
+	}
+	.test1.test2 {
+		color: brown;
 	}
 	body #praise {
 		font-size: 3rem;
