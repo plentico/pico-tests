@@ -18,6 +18,7 @@ var salutation = "hola";
 let path = "./mycomp.pico";
 let comp = "mycomp";
 let new_animal = "";
+let show_animals = true;
 ---
 
 <!DOCTYPE html>
@@ -57,6 +58,8 @@ let new_animal = "";
 			<='{path}' />
 			<="./{comp}.pico" age={age + 1} />
 
+			<button onclick="{show_animals = !show_animals}">{show_animals ? 'Hide Animals' : 'Show Animals'}</button>
+			{if show_animals | style("max-height: 800px", "max-height: 0")}
 			<div class="animals">
 				{for let animal of ["new animal", ...animals]}
 					{if animal == "cat"}
@@ -73,6 +76,7 @@ let new_animal = "";
 					<div>{name} {i}</div>
 				{/for}
 			</div>
+			{/if}
 			<div>
 				<h3>Add new animal:</h3>
 				<input type="text" placeholder="animal name" value="{new_animal}">
@@ -99,5 +103,7 @@ let new_animal = "";
 	.animals {
 		background-color: black;
 		color: white;
+		overflow: hidden;
+		transition: max-height .25s ease-out;
 	}
 </style>
