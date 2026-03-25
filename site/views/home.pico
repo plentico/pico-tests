@@ -59,8 +59,8 @@ let show_animals = true;
 			<="./{comp}.pico" age={age + 1} />
 
 			<button onclick="{show_animals = !show_animals}">{show_animals ? 'Hide Animals' : 'Show Animals'}</button>
-			{if show_animals | style("max-height: 800px", "max-height: 0")}
-			<div class="animals">
+			{if show_animals | class("", "collapsed other-class")}
+			<div class="animals accordion">
 				{for let animal of ["new animal", ...animals]}
 					{if animal == "cat"}
 						<div>Hi {animal}!</div>
@@ -76,6 +76,10 @@ let show_animals = true;
 					<div>{name} {i}</div>
 				{/for}
 			</div>
+			{else if name == "Jam"}
+				<div class="accordion other-class">Jam it is!</div>
+			{else}
+				<div class="accordion">See the animals ^</div>
 			{/if}
 			<div>
 				<h3>Add new animal:</h3>
@@ -103,7 +107,13 @@ let show_animals = true;
 	.animals {
 		background-color: black;
 		color: white;
+	}
+	.accordion {
 		overflow: hidden;
+		max-height: 800px;
 		transition: max-height .25s ease-out;
+	}
+	.collapsed {
+		max-height: 0;
 	}
 </style>
