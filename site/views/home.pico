@@ -3,11 +3,26 @@ import Age from "age.pico";
 import Head from "./head.pico";
 import Todos from "./todos.pico";
 import AgeButton from "age_button.pico";
+import Cms from "./cms.pico";
 
 prop name;
 prop age;
 prop animals;
 prop test = "whatever";
+
+let content = {
+	get name() { return name; },
+	set name(value) { name = value; },
+
+	get age() { return age; },
+	set age(value) { age = value; },
+
+	get animals() { return animals; },
+	set animals(value) { animals = value; },
+
+	get test() { return test; },
+	set test(value) { test = value; },
+}
 
 let text = "<em>some<strong>thing</strong></em>" + name;
 let title = "Pico";
@@ -19,6 +34,29 @@ let path = "./mycomp.pico";
 let comp = "mycomp";
 let new_animal = "";
 let show_animals = true;
+
+let localVars = {
+	get text() {return text;},
+	set text(value) {text = value;},
+
+	get title() {return title;},
+	set title(value) {title = value;},
+
+	get salutation() {return salutation;},
+	set salutation(value) {salutation = value;},
+
+	get path() {return path;},
+	set path(value) {path = value;},
+
+	get comp() {return comp;},
+	set comp(value) {comp = value;},
+
+	get new_animal() {return new_animal;},
+	set new_animal(value) {new_animal = value;},
+
+	get show_animals() {return show_animals;},
+	set show_animals(value) {show_animals = value;},
+}
 ---
 
 <!DOCTYPE html>
@@ -26,8 +64,7 @@ let show_animals = true;
 	<Head {title} />
 	<body>
 		<main>
-			<div id="plenti_cms"></div>
-			<button id="toggle_plenti_cms">Toggle CMS</button>
+			<Cms {*content} {*localVars} />
 			<AgeButton {age} />
 			<AgeButton age={age + 1} />
 			<h1>{salutation} {name}</h1>

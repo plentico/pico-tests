@@ -1,0 +1,157 @@
+---
+prop content;
+prop localVars;
+
+let showMenu = false;
+---
+
+<script>
+    // Array handling functions
+    function updateArray(key, values) {
+        const hiddenInput = document.getElementById('root-' + key);
+        if (hiddenInput) {
+            hiddenInput.value = values.join(',');
+            hiddenInput.dispatchEvent(new Event('input', { bubbles: true }));
+        }
+    }
+</script>
+
+<section class="cms">
+    <button id="toggle_plenti_cms" onclick="{showMenu = !showMenu}">{showMenu ? 'Hide' : 'Show'} CMS</button>
+    <div id="plenti_cms" class="{showMenu ? 'menu-visible' : ''}">
+        <fieldset>
+            <legend>Root Data</legend>
+            {for let [key, value] in Object.entries(content)}
+                <div class="field">
+                    <label for="root-{key}">{key}</label>
+                    {if Array.isArray(value)}
+                        <input type="hidden" id="root-{key}" name="{key}" p-model="{key}" value="{value.join(',')}">
+                        <div class="array-container">
+                            {for let item of value}
+                                <div class="array-item">
+                                    <input type="text" value="{item}" />
+                                    <button type="button" onclick="{/* remove item */}">×</button>
+                                </div>
+                            {/for}
+                            <button type="button" onclick="{/* add item */}">+ Add item</button>
+                        </div>
+                    {else}
+                        <input 
+                            type="{typeof value === 'number' ? 'number' : 'text'}"
+                            id="root-{key}"
+                            name="{key}"
+                            placeholder="{key}"
+                            value="{content[key]}"
+                        >
+                    {/if}
+                </div>
+            {/for}
+        </fieldset>
+        <fieldset>
+            <legend>Local Data</legend>
+            {for let [key, value] of Object.entries(localVars)}
+                <div class="field">
+                    <label for="local-{key}">{key}</label>
+                    <input 
+                        type="text"
+                        id="local-{key}"
+                        name="{key}"
+                        placeholder="{key}"
+                        value="{localVars[key]}"
+                    >
+                </div>
+            {/for}
+        </fieldset>
+    </div>
+</section>
+
+
+<style>
+    #plenti_cms {
+        position: fixed;
+        top: 0;
+        right: -300px;
+        width: 300px;
+        height: 100vh;
+        background-color: #f4f4f4;
+        box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+        transition: right 0.3s ease-in-out;
+        padding: 20px;
+        box-sizing: border-box;
+        z-index: 1000;
+        overflow-y: scroll;
+    }
+
+    #plenti_cms.menu-visible {
+        right: 0;
+    }
+
+    #toggle_plenti_cms {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 1001;
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+
+    .field {
+        margin-bottom: 15px;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+    }
+
+    input[type="text"],
+    input[type="number"] {
+        box-sizing: border-box;
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+
+    .array-container {
+        margin-left: 10px;
+    }
+
+    .array-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 5px;
+    }
+
+    .array-item input {
+        margin-right: 5px;
+        flex: 1;
+    }
+
+    .array-item button {
+        margin-left: 5px;
+        padding: 4px 8px;
+        background-color: #dc3545;
+        color: white;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+    }
+
+    fieldset {
+        margin-bottom: 20px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        padding: 15px;
+    }
+
+    legend {
+        font-weight: bold;
+        padding: 0 10px;
+    }
+</style>
