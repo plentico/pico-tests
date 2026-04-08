@@ -5,17 +5,6 @@ prop localVars;
 let showMenu = false;
 ---
 
-<script>
-    // Array handling functions
-    function updateArray(key, values) {
-        const hiddenInput = document.getElementById('root-' + key);
-        if (hiddenInput) {
-            hiddenInput.value = values.join(',');
-            hiddenInput.dispatchEvent(new Event('input', { bubbles: true }));
-        }
-    }
-</script>
-
 <section class="cms">
     <button id="toggle_plenti_cms" onclick="{showMenu = !showMenu}">{showMenu ? 'Hide' : 'Show'} CMS</button>
     <div id="plenti_cms" class="{showMenu ? 'menu-visible' : ''}">
@@ -25,15 +14,14 @@ let showMenu = false;
                 <div class="field">
                     <label for="root-{key}">{key}</label>
                     {if Array.isArray(value)}
-                        <input type="hidden" id="root-{key}" name="{key}" p-model="{key}" value="{value.join(',')}">
                         <div class="array-container">
-                            {for let item of value}
+                            {for let [i, item] of content[key].entries()}
                                 <div class="array-item">
-                                    <input type="text" value="{item}" />
-                                    <button type="button" onclick="{/* remove item */}">×</button>
+                                    <input type="text" value="{content[key][i]}">
+                                    <button type="button" onclick="{content[key] = content[key].filter(a => content[key][i] != a)}">×</button>
                                 </div>
                             {/for}
-                            <button type="button" onclick="{/* add item */}">+ Add item</button>
+                            <button type="button" onclick="{content[key] = ['', ...content[key]]}">+ Add item</button>
                         </div>
                     {else}
                         <input 

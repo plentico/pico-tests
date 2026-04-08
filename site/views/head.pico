@@ -6,9 +6,9 @@ prop title;
 	<title>{title}</title>
 	<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><linearGradient id='starGrad' x1='20%' y1='20%' x2='80%' y2='80%'><stop offset='0%' stop-color='%23a5f3fc'/><stop offset='100%' stop-color='%2367e8f9'/></linearGradient></defs><polygon points='50,10 61,38 90,38 67,57 76,85 50,70 24,85 33,57 10,38 39,38' fill='url(%23starGrad)' stroke='%231e2937' stroke-width='8' stroke-linejoin='round'/></svg>">
 	<script defer type="text/javascript" src="/script.js"></script>
-	<script defer type="text/javascript" src="https://unpkg.com/@plentico/pattr"></script>
 <!-- 
-	<script defer type="text/javascript" src="/pattr.js"></script>
+	<script defer type="text/javascript" src="https://unpkg.com/@plentico/pattr"></script>
 -->
+	<script defer type="text/javascript" src="/pattr.js"></script>
 	<link rel="stylesheet" href="style.css">
 </head>
