@@ -17,7 +17,7 @@ let showMenu = false;
                         <div class="array-container">
                             {for let [i, item] of content[key].entries()}
                                 <div class="array-item">
-                                    <input type="text" value="{content[key][i]}">
+                                    <input type="text" *value="{content[key][i]}">
                                     <button type="button" onclick="{content[key] = content[key].filter(a => content[key][i] != a)}">×</button>
                                 </div>
                             {/for}
@@ -29,7 +29,7 @@ let showMenu = false;
                             id="root-{key}"
                             name="{key}"
                             placeholder="{key}"
-                            value="{content[key]}"
+                            *value="{content[key]}"
                         >
                     {/if}
                 </div>
@@ -45,7 +45,7 @@ let showMenu = false;
                         id="local-{key}"
                         name="{key}"
                         placeholder="{key}"
-                        value="{localVars[key]}"
+                        *value="{localVars[key]}"
                     >
                 </div>
             {/for}
