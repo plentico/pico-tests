@@ -1,8 +1,8 @@
 ---
-prop age = 12;
+prop color;
 ---
 
-<h1>My comp {age}</h1>
+<h1>My comp is {color}</h1>
 
 <style>
     h1 {

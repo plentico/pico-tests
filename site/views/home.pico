@@ -30,8 +30,7 @@ let title = "Pico";
 var salutation = "hola";
 //var salutation;
 
-let path = "./mycomp.pico";
-let comp = "mycomp";
+let comps = ["blue", "green", "red"];
 let new_animal = "";
 let show_animals = true;
 
@@ -45,11 +44,8 @@ let localVars = {
 	get salutation() {return salutation;},
 	set salutation(value) {salutation = value;},
 
-	get path() {return path;},
-	set path(value) {path = value;},
-
-	get comp() {return comp;},
-	set comp(value) {comp = value;},
+	get comps() {return comps;},
+	set comps(value) {comps = value;},
 
 	get new_animal() {return new_animal;},
 	set new_animal(value) {new_animal = value;},
@@ -91,9 +87,9 @@ let localVars = {
 				<Todos number={7 - 2} />
 			{/if}
 
-			<="./mycomp.pico" {age} />
-			<='{path}' />
-			<="./{comp}.pico" age={age + 1} />
+			{for let comp of comps}
+				<="./comps/{comp}_comp.pico" color={comp} />
+			{/for}
 
 			<button onclick="{show_animals = !show_animals}">{show_animals ? 'Hide Animals' : 'Show Animals'}</button>
 			{if show_animals | class("", "collapsed other-class")}

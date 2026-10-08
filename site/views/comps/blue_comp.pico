@@ -1,0 +1,11 @@
+---
+prop color;
+---
+
+<h1>My comp is {color}</h1>
+
+<style>
+    h1 {
+        color: blue;
+    }
+</style>
