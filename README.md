@@ -15,9 +15,7 @@ pico-tests/
 │   │   ├── todos.html  # Component with loops
 │   │   ├── double.html # Helper component
 │   │   └── mycomp.html # Dynamic component example
-│   ├── static/         # Static assets
-│   │   ├── cms.js
-│   │   └── cms.css
+│   ├── static/         # Static assets copied to the output by `pico render`
 │   └── props.json      # Root props
 ├── e2e/                # End-to-end tests
 │   └── pico_test.go    # go-playwright tests
@@ -36,11 +34,30 @@ pico-tests/
 git clone https://github.com/plentico/pico
 git clone https://github.com/plentico/pico-tests
 
+# Optional: for local pattr development (see below)
+git clone https://github.com/plentico/pattr
+
 # Directory structure should be:
 # parent/
 # ├── pico/
+# ├── pattr/        (optional)
 # └── pico-tests/
 ```
+
+## Local Pattr Development
+
+The site loads `/pattr.js` (see `site/views/head.pico`) from the rendered
+output. `pattr.js` is not checked in to this repo - instead, `pico render`
+automatically copies it from a sibling
+[pattr](https://github.com/plentico/pattr) checkout (`../pattr/pattr.js`) into
+the output whenever one exists, so renders and e2e tests always run against
+your local pattr build with no manual copying.
+
+A `pattr.js` dropped into `site/static/` takes precedence over the sibling
+checkout (it is copied to the output afterwards), so you can pin a specific
+build for testing. Without a local checkout or a static copy, `/pattr.js`
+will 404 - switch the script tag in `site/views/head.pico` to
+`https://unpkg.com/@plentico/pattr` to test against the published build.
 
 ## Running from Pico CLI
 
